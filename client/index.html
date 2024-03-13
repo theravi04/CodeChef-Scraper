@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CodeChef Web Scratch</title>
+</head>
+<body class="light-mode" id="main">
+    <h1 class="top">CodeChef Web Scrape</h1>
+    <div class="content">
+        <div class="request-box">
+            <h1 class="request-title">Enter Your Username</h1>
+            <input type="text" class="username-input" id="userInp" placeholder="Enter Your CodeChef Username">
+            <button class="send-button" onclick="sendreq()">Send Request</button>
+        </div>
+        <div class="loading-container">
+            <h3 id="load"></h3>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
