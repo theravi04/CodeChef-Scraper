@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import path from "path";
+const __dirname = path.resolve();
 
 puppeteer.use(StealthPlugin());
 
@@ -86,6 +88,15 @@ const fetchingData = async (req, res) => {
 };
 
 app.post("/", fetchingData);
+
+
+// Serve static files from the "frontend/dist" directory
+app.use(express.static(path.join(__dirname, "client", "build")));
+
+// Handle all other routes and serve the client application
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(4000, () => {
   console.log("listening on port http://localhost:4000");
