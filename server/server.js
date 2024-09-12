@@ -91,7 +91,8 @@ app.post("/", fetchingData);
 
 
 // Serve static files from the "frontend/dist" directory
-app.use(express.static(path.join(__dirname, "client", "build")));
+// app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 // Handle all other routes and serve the client application
 app.get("*", (req, res) => {
