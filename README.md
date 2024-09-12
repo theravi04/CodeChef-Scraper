@@ -9,25 +9,20 @@ Ensure you have the following installed:
 
 Node.js (v14 or higher recommended)
 npm (Node package manager, comes with Node.js)
-Installing
-Clone the repository:
 
-## bash
+## Usage
 
+```bash
 git clone https://github.com/your-username/codechef-scraper.git
-Navigate to the project directory:
-
-## bash
 cd codechef-scraper
-Install the required dependencies:
-
-## bash
+cd codechef-scraper/client
 npm install
-Running the Application
-To start the development server and run the application:
-
-## bash
 npm start
+cd codechef-scraper/server
+npm install
+nodemon server.js
+```
+
 This will open the application in your default browser at http://localhost:3000. The page will reload automatically whenever you make changes to the source code.
 
 ## Features
