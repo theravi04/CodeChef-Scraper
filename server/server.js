@@ -3,6 +3,7 @@ import cors from "cors";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import path from "path";
+import { log } from "console";
 const __dirname = path.resolve();
 
 puppeteer.use(StealthPlugin());
@@ -16,8 +17,10 @@ const fetchingData = async (req, res) => {
   try {
     const username = req.body.username;
 
-    // Launch the browser in headless mode
-    const browser = await puppeteer.launch({ headless: "new" }); // Use 'new' for full headless mode
+    // Launch the browser in headless mode -> opens in background
+    const browser = await puppeteer.launch({ headless: "new" });
+    // Use false to view the browser
+    // const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto(`https://www.codechef.com/users/${username}`);
 
@@ -44,7 +47,9 @@ const fetchingData = async (req, res) => {
     await page.waitForSelector(".contest-participated-count", { visible: true });
     const userContestCountElement = await page.$(".contest-participated-count");
     const userContestCountHtml = await page.evaluate(el => el.innerHTML, userContestCountElement);
+    // below code attempts to match any sequence of digits (\d+) that appears b/w <b> and </b> tags.
     const match = userContestCountHtml.match(/<b>(\d+)<\/b>/);
+    // If match not null parseInt(match[1], 10) converts number string to an integer.
     const contestCount = match ? parseInt(match[1], 10) : 0;
 
     // Extract Profile Image URL
@@ -68,6 +73,11 @@ const fetchingData = async (req, res) => {
       ["Country:", "Student/Professional:", "Institution:"].includes(item.labelText)
     );
 
+    // await page.waitForSelector(".dataTable");
+    // const userData = await page.$("[class = 'dataTable']");
+    // const userDataTemp = userData ? await (await userData.getProperty("textContent")).jsonValue() : null;
+    // console.log(userDataTemp);
+    
     // Close the browser
     await browser.close();
 
